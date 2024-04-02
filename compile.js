@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs');
 const solc = require('solc');
 
-const contractPath = path.resolve(__dirname, 'contracts/Account.sol');
+const contractPath = path.resolve(__dirname, 'contracts','Account.sol');
 const contractSource = fs.readFileSync(contractPath, 'utf8');
 
 const input = {
@@ -36,3 +36,8 @@ if (output.errors) {
         console.log(`ABI: ${JSON.stringify(contracts[contractName].abi)}`);
     }
 }
+module.exports = {
+    abi: output.contracts['contracts/Account.sol']["Account"].abi,
+    bytecode: output.contracts['contracts/Account.sol']["Account"].evm.bytecode.object,
+};
+
