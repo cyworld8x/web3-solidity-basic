@@ -24,6 +24,11 @@ describe('Account Contract', () => {
           }).send({ from: accounts[0], gas: '1000000' });
     });
 
+    it('deploy a contract', async () => {
+        //const balance = await accountInstance.methods.getBalance().call();
+        assert.ok(accountInstance.options.address);
+    });
+
     it('should have an initial balance of 0', async () => {
         const balance = await accountInstance.methods.getBalance().call();
         assert.strictEqual(balance, BigInt(0));
