@@ -4,8 +4,10 @@ const solc = require('solc');
 
 const contractPath = path.resolve(__dirname, 'contracts','Account.sol');
 const lotteryPath = path.resolve(__dirname, 'contracts','Lottery.sol');
+const campaignPath = path.resolve(__dirname, 'contracts','Campaign.sol');
 const contractSource = fs.readFileSync(contractPath, 'utf8');
 const lotterySource = fs.readFileSync(lotteryPath, 'utf8');
+const campaignSource = fs.readFileSync(campaignPath, 'utf8');
 
 const input = {
     language: 'Solidity',
@@ -15,6 +17,9 @@ const input = {
         },
         'Lottery': {
             content: lotterySource,
+        },
+        'Campaign': {
+            content: campaignSource,
         },
     },
     settings: {
@@ -34,7 +39,7 @@ if (output.errors) {
 } else {
     console.log('Compilation successful!');
     // Access the compiled contracts
-    const contracts = output.contracts['Account'];
+    const contracts = output.contracts['Campaign'];
     for (let contractName in contracts) {
         console.log(`Contract name: ${contractName}`);
         //console.log(`Bytecode: ${contracts[contractName].evm.bytecode.object}`);
@@ -43,6 +48,5 @@ if (output.errors) {
 }
 
 module.exports = {
-    ...output.contracts.Lottery,...output.contracts.Account
+    ...output.contracts.Lottery,...output.contracts.Account,...output.contracts.Campaign,
 };
-

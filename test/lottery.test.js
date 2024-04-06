@@ -4,8 +4,7 @@ const ganache = require('ganache');
 const { Lottery } = require('../compile');
 
 // Create a new instance of the web3 provider using Ganache
-const provider = ganache.provider();
-const web3 = new Web3(provider);
+const web3 = new Web3(ganache.provider());
 
 let accounts;
 let lottery;
@@ -19,8 +18,6 @@ beforeEach(async () => {
         .deploy({ data: Lottery.evm.bytecode.object })
         .send({ from: accounts[0], gas: '1000000' });
 
-    // Set the provider for the contract instance
-    lottery.setProvider(provider);
 });
 
 describe('Lottery', () => {
