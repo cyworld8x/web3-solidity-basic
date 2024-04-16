@@ -17,7 +17,7 @@ beforeEach(async () => {
 
      // Deploy the Lottery contract
      campaign = await new web3.eth.Contract(Campaign.abi)
-         .deploy({ data: Campaign.evm.bytecode.object, arguments: [web3.utils.toWei('0', 'ether')]})
+         .deploy({ data: Campaign.evm.bytecode.object, arguments: [web3.utils.toWei('0', 'ether'), accounts[0]]})
          .send({ from: accounts[0], gas: '10000000' });
 });
 

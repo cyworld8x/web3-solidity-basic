@@ -6,6 +6,19 @@ pragma solidity ^0.8.25;
 // If more than 50% of the contributors approve the request, 
 // the manager can finalize the request and the funds will be sent to the vendor.
 
+contract CampaignFactory {
+    address[] public deployedCampaigns;
+    uint public  deployedCampaignsCount;
+    function createCampaign(uint _minimumContribution) public {
+        Campaign c = new Campaign(_minimumContribution, msg.sender);
+        deployedCampaigns.push(address(c));
+    }
+
+    function getdeployedCampaigns() public view returns (address[] memory) {
+        return deployedCampaigns;
+    }
+}
+
 contract Campaign {
     struct Request {
         string description;
@@ -28,8 +41,8 @@ contract Campaign {
         _;
     }
 
-    constructor(uint256 _minimumContribution) {
-        manager = msg.sender;
+    constructor(uint256 _minimumContribution, address _manager) {
+        manager = _manager;
         minimumContribution = _minimumContribution;
     }
 

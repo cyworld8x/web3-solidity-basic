@@ -8,7 +8,8 @@ const campaignPath = path.resolve(__dirname, 'contracts','Campaign.sol');
 const contractSource = fs.readFileSync(contractPath, 'utf8');
 const lotterySource = fs.readFileSync(lotteryPath, 'utf8');
 const campaignSource = fs.readFileSync(campaignPath, 'utf8');
-
+const escrowSource = fs.readFileSync(path.resolve(__dirname, 'contracts','Escrow.sol'), 'utf8');
+const coinSource = fs.readFileSync(path.resolve(__dirname, 'contracts','Coin.sol'), 'utf8');
 const input = {
     language: 'Solidity',
     sources: {
@@ -20,6 +21,12 @@ const input = {
         },
         'Campaign': {
             content: campaignSource,
+        },
+        'Escrow': {
+            content: escrowSource,
+        },
+        'Coin': {
+            content: coinSource,
         },
     },
     settings: {
@@ -48,5 +55,5 @@ if (output.errors) {
 }
 
 module.exports = {
-    ...output.contracts.Lottery,...output.contracts.Account,...output.contracts.Campaign,
+    ...output.contracts.Lottery,...output.contracts.Account,...output.contracts.Campaign,...output.contracts.Escrow,...output.contracts.Coin,
 };
